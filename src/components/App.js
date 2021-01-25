@@ -17,11 +17,9 @@ function App() {
 
   app.auth().onAuthStateChanged(user => {
     if (!user) {
-      console.log('user not signed in');
       setUser(false);
     }
     if (user) {
-      console.log(`User is signed in ${user.uid}`);
       setUser(true);
     }
   });

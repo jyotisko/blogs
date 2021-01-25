@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { CORS_PROXY_SERVER_URL } from './globals';
 
 const useFetch = url => {
 
@@ -10,8 +9,7 @@ const useFetch = url => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fullUrl = `${CORS_PROXY_SERVER_URL}${url}`;
-    fetch(fullUrl, {
+    fetch(url, {
       signal: abortController.signal,
     })
       .then(res => {

@@ -1,6 +1,5 @@
 import { useHistory, useParams } from "react-router-dom";
 import useFetch from '../useFetch';
-import { CORS_PROXY_SERVER_URL } from '../globals';
 import { Link } from 'react-router-dom';
 import { app } from './../firebase';
 
@@ -13,7 +12,7 @@ const BlogDetails = ({ user }) => {
   const [blog, isPending, error] = useFetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/blogs/${id}`);
 
   const deleteBlog = () => {
-    fetch(`${CORS_PROXY_SERVER_URL}https://blog-api-jyotisko.herokuapp.com/api/v1/blogs/${id}`,
+    fetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/blogs/${id}`,
       { method: 'DELETE' }
     ).then(_ => history.push('/'));
   };

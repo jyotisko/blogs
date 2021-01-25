@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CORS_PROXY_SERVER_URL } from '../globals';
 import BlogList from './BlogList';
 
 const Search = ({ user }) => {
@@ -17,7 +16,7 @@ const Search = ({ user }) => {
     setLoading(true);
 
     try {
-      const url = `${CORS_PROXY_SERVER_URL}https://blog-api-jyotisko.herokuapp.com/api/v1/blogs?${filter}=${query}`;
+      const url = `https://blog-api-jyotisko.herokuapp.com/api/v1/blogs?${filter}=${query}`;
       const res = await fetch(url);
       const data = await res.json();
       setBlogs(data);

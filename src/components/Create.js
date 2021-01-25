@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { CORS_PROXY_SERVER_URL } from '../globals';
 import { app } from './../firebase';
 
 const Create = ({ user }) => {
@@ -20,7 +19,7 @@ const Create = ({ user }) => {
 
     const blog = { title, body, author: authorName, userID: authorID };
 
-    fetch(`${CORS_PROXY_SERVER_URL}https://blog-api-jyotisko.herokuapp.com/api/v1/blogs`, {
+    fetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/blogs`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(blog)
