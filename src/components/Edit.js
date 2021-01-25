@@ -12,18 +12,17 @@ const Edit = ({ user }) => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [author, setAuthor] = useState('');
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [userID, setUserID] = useState('');
 
   useEffect(() => {
     (async () => {
       try {
-        setLoading(true);
+        const loadingToast = toast.loading('Loading...');
         const url = `https://blog-api-jyotisko.herokuapp.com/api/v1/blogs/${id}`;
         const res = await fetch(url);
         const data = await res.json();
-        setLoading(false);
+        toast.dismiss(loadingToast);
         setUserID(data.blog.userID);
         setBlog(data);
         setTitle(data.blog.title);
@@ -40,7 +39,7 @@ const Edit = ({ user }) => {
     if (userID !== app.auth().currentUser.uid) return toast.error('You can\'t edit blogs you haven\'t written!', { duration: 5000 });
     try {
       if (!title || !body || !author) return toast.error('The field(s) could not be left empty!');
-      setLoading(true);
+      const loadingToast = toast.loading('Loading...');
       const newBlogData = {
         title: title,
         body: body,
@@ -54,13 +53,14 @@ const Edit = ({ user }) => {
         data: JSON.stringify(newBlogData),
         body: JSON.stringify(newBlogData),
       });
+      toast.dismiss(loadingToast);
       if (!data.ok) throw new Error('Something went wrong');
       else {
         setError(false);
         history.push('/');
       }
     } catch (err) {
-      setError(true);
+      toast.error('Something went wrong...', { duration: 5000 });
     }
   };
 
@@ -88,9 +88,6 @@ const Edit = ({ user }) => {
           }
           {
             error && <div>Something went wrong. Failed to fetch...</div>
-          }
-          {
-            loading && <div>Loading...</div>
           }
         </div>
       ) : (

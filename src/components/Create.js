@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { app } from './../firebase';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Create = ({ user }) => {
 
@@ -8,28 +9,31 @@ const Create = ({ user }) => {
   const [body, setBody] = useState('');
   const [isPending, setIsPending] = useState(false);
 
-  const authorName = app.auth().currentUser.displayName;
-  const authorID = app.auth().currentUser.uid;
+  const authorName = app.auth()?.currentUser?.displayName;
+  const authorID = app.auth()?.currentUser?.uid;
 
   const history = useHistory();
 
   const handleSubmit = e => {
     e.preventDefault();
     setIsPending(true);
-
+    const loadingToast = toast.loading('Loading...');
     const blog = { title, body, author: authorName, userID: authorID };
-
     fetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/blogs`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(blog)
-    }).then((data) => {
-      console.log(data);
-      setIsPending(false)
+    }).then(_ => {
+      setIsPending(false);
+      toast.dismiss(loadingToast);
       setTitle('');
       setBody('');
       history.push('/');
-    })
+    }).catch(_ => {
+      toast.error('Something went wrong...');
+      setIsPending(false);
+      toast.dismiss(loadingToast);
+    });
   };
 
   return (
@@ -68,6 +72,7 @@ const Create = ({ user }) => {
       ) : (
           <h4><Link to='/login'>Login</Link> to create a blog!</h4>
         )}
+      <Toaster position='bottom-center' />
     </>
   );
 }

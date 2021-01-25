@@ -2,6 +2,8 @@ import { useHistory, useParams } from "react-router-dom";
 import useFetch from '../useFetch';
 import { Link } from 'react-router-dom';
 import { app } from './../firebase';
+import { useEffect } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 
 const BlogDetails = ({ user }) => {
 
@@ -17,15 +19,22 @@ const BlogDetails = ({ user }) => {
     ).then(_ => history.push('/'));
   };
 
+  useEffect(() => {
+    let loadingToast;
+    if (isPending) loadingToast = toast.loading('Loading...');
+    else toast.dismiss(loadingToast);
+  }, [isPending]);
+
+  useEffect(() => {
+    error && toast.error('Something went wrong', { duration: 5000 });
+  }, [error]);
+
   return (
     <>
       {user ? (
         <div className='blog-details'>
           {
-            isPending && <div>Loading...</div>
-          }
-          {
-            error && <div>{error}</div>
+            error && <div>Something went wrong...</div>
           }
           {
             blog && <article>
@@ -44,7 +53,7 @@ const BlogDetails = ({ user }) => {
       ) : (
           <h4><Link to='/login'>Login</Link> to view blog.</h4>
         )}
-
+      <Toaster position='bottom-center' />
     </>
   );
 }
