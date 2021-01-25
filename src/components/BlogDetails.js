@@ -2,8 +2,9 @@ import { useHistory, useParams } from "react-router-dom";
 import useFetch from '../useFetch';
 import { CORS_PROXY_SERVER_URL } from '../globals';
 import { Link } from 'react-router-dom';
+import { app } from './../firebase';
 
-const BlogDetails = () => {
+const BlogDetails = ({ user }) => {
 
   const { id } = useParams();
 
@@ -18,23 +19,34 @@ const BlogDetails = () => {
   };
 
   return (
-    <div className='blog-details'>
-      {
-        isPending && <div>Loading...</div>
-      }
-      {
-        error && <div>{error}</div>
-      }
-      {
-        blog && <article>
-          <h2>{blog.blog.title}</h2>
-          <p>Written by {blog.blog.author}</p>
-          <div>{blog.blog.body}</div>
-          <button onClick={deleteBlog} className='delete-blog'>Delete</button>
-          <Link to={`/edit/${blog.blog._id}`}><button>Edit</button></Link>
-        </article>
-      }
-    </div>
+    <>
+      {user ? (
+        <div className='blog-details'>
+          {
+            isPending && <div>Loading...</div>
+          }
+          {
+            error && <div>{error}</div>
+          }
+          {
+            blog && <article>
+              <h2>{blog.blog.title}</h2>
+              <p>Written by {blog.blog.author}</p>
+              <div>{blog.blog.body}</div>
+              {blog.blog.userID === app.auth().currentUser.uid && (
+                <>
+                  <button onClick={deleteBlog} className='delete-blog'>Delete</button>
+                  <Link to={`/edit/${blog.blog._id}`}><button>Edit</button></Link>
+                </>
+              )}
+            </article>
+          }
+        </div>
+      ) : (
+          <h4><Link to='/login'>Login</Link> to view blog.</h4>
+        )}
+
+    </>
   );
 }
 

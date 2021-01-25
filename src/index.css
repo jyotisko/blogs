@@ -34,6 +34,15 @@
   padding: 20px;
 }
 
+.logout-btn {
+  border: 2px solid #f1356d;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  background-color: transparent;
+  color: #f1356d;
+  padding: 0.3rem 0.5rem;
+}
+
 /* blog previews / list */
 .blog-preview {
   padding: 10px 16px;

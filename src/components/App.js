@@ -6,28 +6,52 @@ import BlogDetails from './BlogDetails';
 import NotFound from './NotFound';
 import Search from './Search';
 import Edit from './Edit';
+import Signup from './Signup';
+import Login from './Login';
+import { useState } from 'react';
+import { app } from './../firebase';
 
 function App() {
+
+  const [user, setUser] = useState(false);
+
+  app.auth().onAuthStateChanged(user => {
+    if (!user) {
+      console.log('user not signed in');
+      setUser(false);
+    }
+    if (user) {
+      console.log(`User is signed in ${user.uid}`);
+      setUser(true);
+    }
+  });
+
   return (
     <Router>
       <div className="App">
-        <NavBar />
+        <NavBar user={user} />
         <div className='content'>
           <Switch>
             <Route path='/' exact>
-              <Home />
+              <Home user={user} />
             </Route>
             <Route path='/create'>
-              <Create />
+              <Create user={user} />
             </Route>
             <Route path='/blogs/:id'>
-              <BlogDetails />
+              <BlogDetails user={user} />
             </Route>
             <Route path='/search'>
-              <Search />
+              <Search user={user} />
             </Route>
             <Route path='/edit/:id'>
-              <Edit />
+              <Edit user={user} />
+            </Route>
+            <Route path='/signup'>
+              <Signup />
+            </Route>
+            <Route path='/login'>
+              <Login />
             </Route>
             <Route path='*'>
               <NotFound />
