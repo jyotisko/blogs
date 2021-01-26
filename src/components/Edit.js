@@ -94,7 +94,9 @@ const Edit = ({ user }) => {
           <h4><Link to='/login'>Login</Link> to be able to edit your blogs.</h4>
         )}
 
-      <Toaster position='bottom-center' />
+      <Toaster toastOptions={{
+        className: 'toast-element'
+      }} position='bottom-center' />
     </>
   );
 }

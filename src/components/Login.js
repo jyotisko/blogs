@@ -24,7 +24,9 @@ const Login = () => {
 
   return (
     <div className='create'>
-      <Toaster position='bottom-center' />
+      <Toaster toastOptions={{
+        className: 'toast-element'
+      }} position='bottom-center' />
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <label>Email: </label>

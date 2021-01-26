@@ -28,7 +28,9 @@ const Home = ({ user }) => {
           <h4><Link to='/login'>Login</Link> to view blogs</h4>
         )
       }
-      <Toaster position='center-bottom' />
+      <Toaster toastOptions={{
+        className: 'toast-element'
+      }} position='bottom-center' />
     </div>
   );
 };

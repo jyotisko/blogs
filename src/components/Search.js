@@ -1,29 +1,29 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import BlogList from './BlogList';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Search = ({ user }) => {
 
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState('title');
   const [blogs, setBlogs] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
     if (query === '') return;
-    setLoading(true);
 
+    let loadingToast;
     try {
+      loadingToast = toast.loading('Fetching your blogs...');
       const url = `https://blog-api-jyotisko.herokuapp.com/api/v1/blogs?${filter}=${query}`;
       const res = await fetch(url);
       const data = await res.json();
+      toast.dismiss(loadingToast);
       setBlogs(data);
-      setLoading(false);
     } catch (err) {
-      setError(true);
-      setLoading(false);
+      toast.dismiss(loadingToast);
+      toast.error('Something went wrong', { duration: 5000 });
     }
   };
 
@@ -41,20 +41,16 @@ const Search = ({ user }) => {
           </form>
           <div>
             {
-              loading && <div>Loading...</div>
-            }
-            {
               blogs && <BlogList title='Search' blogs={blogs} />
-            }
-            {
-              error && <div>Something went wrong. Failed to fetch...</div>
             }
           </div>
         </div>
       ) : (
           <h4><Link to='/login'>Login</Link> and search for your favorite blogs!</h4>
         )}
-
+      <Toaster toastOptions={{
+        className: 'toast-element'
+      }} position='bottom-center' />
     </>
   );
 }

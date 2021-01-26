@@ -18,25 +18,29 @@ const Account = ({ user }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    let loadingToast;
     try {
       const passwordForConfirmation = await swal({
         content: {
           element: 'input',
           attributes: {
-            placeholder: 'Type your password',
+            placeholder: 'Type your password to continue',
             type: 'password'
           }
         }
       });
       if (!passwordForConfirmation) return;
+      loadingToast = toast.loading('Updating your account...');
       await app.auth().signInWithEmailAndPassword(app.auth().currentUser.email, passwordForConfirmation);
       await app.auth().currentUser.updateEmail(email);
       await app.auth().currentUser.updateProfile({
         displayName: username
       });
+      toast.dismiss(loadingToast);
       toast.success('Yay! Account info changed successfully.', { duration: 3000 });
     } catch (err) {
-      if (err.code === 'auth/wrong-password') return toast.error('Password is incorrect. Operation suspended.', { duration: 5000 })
+      toast.dismiss(loadingToast);
+      if (err.code === 'auth/wrong-password') return toast.error('Password is incorrect. Operation suspended.', { duration: 5000 });
       toast.error(err.message, { duration: 5000 });
     }
   };
@@ -54,7 +58,9 @@ const Account = ({ user }) => {
             </form>
             <button className='signout-btn' onClick={() => app.auth().signOut().then(history.push('/'))}>Log out</button>
           </div>
-          <Toaster position='bottom-center' />
+          <Toaster toastOptions={{
+            className: 'toast-element'
+          }} position='bottom-center' />
         </>
       ) : (
           <h4><Link to='/login'>Login</Link> to view account...</h4>
