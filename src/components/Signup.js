@@ -10,8 +10,6 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const history = useHistory();
 
-  let loadingToast;
-
   const handleSubmit = async e => {
     e.preventDefault();
     const loading = toast.loading('Loading...');
