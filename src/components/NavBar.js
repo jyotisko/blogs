@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { app } from './../firebase';
 
 const NavBar = ({ user }) => {
   return (
@@ -11,7 +10,7 @@ const NavBar = ({ user }) => {
             <Link to='/'>Home</Link>
             <Link to='/create'>New Blog</Link>
             <Link to='/search'>Search</Link>
-            <button className='logout-btn' onClick={() => app.auth().signOut()}>Logout</button>
+            <Link to='/account'>Account</Link>
           </>
         ) : (
             <>
