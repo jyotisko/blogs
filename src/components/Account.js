@@ -32,12 +32,22 @@ const Account = ({ user }) => {
       if (!passwordForConfirmation) return;
       loadingToast = toast.loading('Updating your account...');
       await app.auth().signInWithEmailAndPassword(app.auth().currentUser.email, passwordForConfirmation);
+      await fetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/blogs/updateAllAuthor/${app.auth().currentUser.uid}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          authorName: username
+        })
+      });
       await app.auth().currentUser.updateEmail(email);
       await app.auth().currentUser.updateProfile({
         displayName: username
       });
       toast.dismiss(loadingToast);
       toast.success('Yay! Account info changed successfully.', { duration: 3000 });
+      console.log(app.auth().currentUser.displayName);
     } catch (err) {
       toast.dismiss(loadingToast);
       if (err.code === 'auth/wrong-password') return toast.error('Password is incorrect. Operation suspended.', { duration: 5000 });
@@ -52,7 +62,7 @@ const Account = ({ user }) => {
           <div className='account-container create'>
             <h2>Edit Account Info</h2>
             <form className='create' onSubmit={handleSubmit}>
-              <label>Username: </label><input disabled type='text' value={username} onChange={e => setUsername(e.target.value)}></input>
+              <label>Username: </label><input minLength='3' type='text' value={username} onChange={e => setUsername(e.target.value)}></input>
               <label>Email: </label><input type='email' value={email} onChange={e => setEmail(e.target.value)}></input>
               <button type='submit'>Change Account Info</button>
             </form>
