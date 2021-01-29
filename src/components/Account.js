@@ -92,7 +92,6 @@ const Account = ({ user }) => {
           <div className='account-container create'>
             <h2>Edit Account Info</h2>
             <form className='create' onSubmit={handleSubmit}>
-              <input type='file' />
               <label>Username: </label><input minLength='3' type='text' value={username} onChange={e => setUsername(e.target.value)}></input>
               <label>Email: </label><input type='email' value={email} onChange={e => setEmail(e.target.value)}></input>
               <label>Bio: </label><textarea type='text' value={bio} onChange={e => setBio(e.target.value)} placeholder='Write something about yourself...'></textarea>
