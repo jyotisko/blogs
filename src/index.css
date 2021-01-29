@@ -216,6 +216,34 @@ h4 {
   margin-top: 1rem;
 }
 
+/* About the author */
+
+.about-the-author-heading {
+  font-size: 3rem;
+  color: #f1356d;
+  margin-bottom: 2rem;
+}
+
+.author-info-container h1.author-name {
+  font-size: 2.3rem;
+}
+
+.author-info-container p.about-the-author-para {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.author-info-container p.member-since-para {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+span {
+  color: #000;
+}
+
 /*************************************************/
 /*** Media Queries ***/
 

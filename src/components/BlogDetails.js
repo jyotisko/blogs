@@ -39,7 +39,7 @@ const BlogDetails = ({ user }) => {
           {
             blog && <article>
               <h2>{blog.blog.title}</h2>
-              <p>Written by {blog.blog.author}</p>
+              <p>Written by <a href={`/user/${blog.blog.userID}`}>{blog.blog.author}</a></p>
               <div>{blog.blog.body}</div>
               {blog.blog.userID === app.auth().currentUser.uid && (
                 <>

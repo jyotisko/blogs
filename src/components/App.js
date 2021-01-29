@@ -11,6 +11,7 @@ import Login from './Login';
 import { useState } from 'react';
 import { app } from './../firebase';
 import Account from './Account';
+import AuthorInfo from './AuthorInfo';
 
 function App() {
 
@@ -54,6 +55,9 @@ function App() {
             </Route>
             <Route path='/account'>
               <Account user={user} />
+            </Route>
+            <Route path='/user/:uid'>
+              <AuthorInfo user={user} />
             </Route>
             <Route path='*'>
               <NotFound />

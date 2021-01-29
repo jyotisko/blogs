@@ -18,6 +18,17 @@ const Signup = () => {
       await credentials.user.updateProfile({
         displayName: username
       });
+      await fetch('https://blog-api-jyotisko.herokuapp.com/api/v1/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: username,
+          userID: app.auth().currentUser.uid,
+          bio: ''
+        })
+      });
       toast.dismiss(loading);
       history.push('/');
     } catch (err) {
