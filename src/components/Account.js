@@ -10,6 +10,8 @@ const Account = ({ user }) => {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [bio, setBio] = useState('');
+  const [profilePicUrl, setProfilePicUrl] = useState();
+  const [file, setFile] = useState();
 
   useEffect(() => {
     if (!user) return;
@@ -28,6 +30,7 @@ const Account = ({ user }) => {
         const data = await res.json();
 
         setBio(data.user.bio);
+        setProfilePicUrl(data.user.profilePicUrl);
         toast.dismiss(loadingToast);
 
       } catch (err) {
@@ -36,6 +39,20 @@ const Account = ({ user }) => {
       }
     })();
   }, [user]);
+
+  const getUniqueProfilePicName = file => `${file.name.split('.')[0]}${app.auth().currentUser.uid}.${file.name.split('.')[file.name.split('.').length - 1]}`;
+
+  const uploadFile = async file => {
+    try {
+      if (!file) return;
+      const storageRef = app.storage().ref(`profile/${getUniqueProfilePicName(file)}`);
+      const snapshot = await storageRef.put(file);
+      const downloadUrl = await snapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (err) {
+      throw err;
+    }
+  };
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -50,9 +67,10 @@ const Account = ({ user }) => {
           }
         }
       });
-      if (!passwordForConfirmation) return;
+      if (!passwordForConfirmation) return toast('Enter password to update changes.');
       loadingToast = toast.loading('Updating your account...');
       await app.auth().signInWithEmailAndPassword(app.auth().currentUser.email, passwordForConfirmation);
+      const newProfilePicUrl = await uploadFile(file);
       await fetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/users/${app.auth().currentUser.uid}`, {
         method: 'PATCH',
         headers: {
@@ -61,6 +79,7 @@ const Account = ({ user }) => {
         body: JSON.stringify({
           username: username,
           bio: bio,
+          profilePicUrl: newProfilePicUrl,
         })
       });
       await fetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/blogs/updateAllAuthor/${app.auth().currentUser.uid}`, {
@@ -78,6 +97,7 @@ const Account = ({ user }) => {
       });
       toast.dismiss(loadingToast);
       toast.success('Yay! Account info changed successfully.', { duration: 3000 });
+      history.push('/');
     } catch (err) {
       toast.dismiss(loadingToast);
       if (err.code === 'auth/wrong-password') return toast.error('Password is incorrect. Operation suspended.', { duration: 5000 });
@@ -92,6 +112,13 @@ const Account = ({ user }) => {
           <div className='account-container create'>
             <h2>Edit Account Info</h2>
             <form className='create' onSubmit={handleSubmit}>
+              {profilePicUrl ? (
+                <>
+                  <img className='author-image' src={profilePicUrl} alt={username} />
+                  <label>Choose Profile Picture: </label>
+                  <input className='file-input' type='file' onChange={e => setFile(e.target.files[0])} />
+                </>
+              ) : <h4>Getting profile pic...</h4>}
               <label>Username: </label><input minLength='3' type='text' value={username} onChange={e => setUsername(e.target.value)}></input>
               <label>Email: </label><input type='email' value={email} onChange={e => setEmail(e.target.value)}></input>
               <label>Bio: </label><textarea type='text' value={bio} onChange={e => setBio(e.target.value)} placeholder='Write something about yourself...'></textarea>

@@ -197,6 +197,28 @@ html {
   margin-top: 1rem;
 }
 
+.author-image {
+  height: 20rem;
+  width: 20rem;
+  position: relative;
+  border-radius: 50%;
+}
+
+.profile-pic-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.file-input {
+  top: 0;
+  
+}
+
 /* Toast Notification */
 
 .toast-element {
