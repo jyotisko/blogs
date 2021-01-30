@@ -242,12 +242,29 @@ h4 {
 
 .about-the-author-heading {
   font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #f1356d;
   margin-bottom: 2rem;
 }
 
+.author-info-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .author-info-container h1.author-name {
   font-size: 2.3rem;
+}
+
+.author-info-container img {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  margin-bottom: 1rem;
 }
 
 .author-info-container p.about-the-author-para {
