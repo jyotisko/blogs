@@ -50,7 +50,7 @@ const AuthorInfo = ({ user }) => {
             <>
               <h2 className='about-the-author-heading'>About the author</h2>
               <div className='author-info-container'>
-                <img src={authorInfo.profilePicUrl} />
+                <img src={authorInfo.profilePicUrl} alt={authorInfo.username} />
                 <h1 className='author-name'>{authorInfo.username}</h1>
                 <p className='about-the-author-para'>{authorInfo.bio}</p>
                 <p className='member-since-para'>Member since {getAccountCreationDate(authorInfo.createdAt)}</p>
