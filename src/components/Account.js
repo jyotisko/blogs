@@ -9,7 +9,7 @@ const Account = ({ user }) => {
   const history = useHistory();
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
-  const [bio, setBio] = useState('');
+  const [bio, setBio] = useState();
   const [profilePicUrl, setProfilePicUrl] = useState();
   const [file, setFile] = useState();
 

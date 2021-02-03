@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { app } from './../firebase';
 import Account from './Account';
 import AuthorInfo from './AuthorInfo';
+import Bookmarks from './Bookmarks';
 
 function App() {
 
@@ -31,38 +32,21 @@ function App() {
       <div className="App">
         <NavBar user={user} />
         <div className='content'>
+
           <Switch>
-            <Route path='/' exact>
-              <Home user={user} />
-            </Route>
-            <Route path='/create'>
-              <Create user={user} />
-            </Route>
-            <Route path='/blogs/:id'>
-              <BlogDetails user={user} />
-            </Route>
-            <Route path='/search'>
-              <Search user={user} />
-            </Route>
-            <Route path='/edit/:id'>
-              <Edit user={user} />
-            </Route>
-            <Route path='/signup'>
-              <Signup />
-            </Route>
-            <Route path='/login'>
-              <Login />
-            </Route>
-            <Route path='/account'>
-              <Account user={user} />
-            </Route>
-            <Route path='/user/:uid'>
-              <AuthorInfo user={user} />
-            </Route>
-            <Route path='*'>
-              <NotFound />
-            </Route>
+            <Route path='/' exact component={() => <Home user={user} />} />
+            <Route path='/create' component={() => <Create user={user} />} />
+            <Route path='/blogs/:id' component={() => <BlogDetails user={user} />} />
+            <Route path='/search' component={() => <Search user={user} />} />
+            <Route path='/edit/:id' component={() => <Edit user={user} />} />
+            <Route path='/signup' component={Signup} />
+            <Route path='/login' component={Login} />
+            <Route path='/account' component={() => <Account user={user} />} />
+            <Route path='/user/:uid' component={() => <AuthorInfo user={user} />} />
+            <Route path='/bookmarks' component={() => <Bookmarks user={user} />} />
+            <Route path='*' component={NotFound} />
           </Switch>
+
         </div>
       </div>
     </Router>
