@@ -97,7 +97,7 @@ const BlogDetails = ({ user }) => {
   const SVGImage = ({ isBookmarked }) => {
     return (
       <svg className='svg-bookmark' onClick={handleBookmarkClick}>
-        <use xlinkHref={`${icons}#icon-bookmark${isBookmarked && '-fill'}`} />
+        <use xlinkHref={`${icons}#icon-bookmark${isBookmarked ? '-fill' : ''}`} />
       </svg>
     );
   };
@@ -127,8 +127,8 @@ const BlogDetails = ({ user }) => {
           }
         </div>
       ) : (
-          <h4><Link to='/login'>Login</Link> to view blog.</h4>
-        )}
+        <h4><Link to='/login'>Login</Link> to view blog.</h4>
+      )}
       <Toaster toastOptions={{
         className: 'toast-element'
       }} position='bottom-center' />
