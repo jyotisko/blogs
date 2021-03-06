@@ -15,7 +15,7 @@ const AuthorInfo = ({ user }) => {
       let loadingToast;
       try {
         loadingToast = toast.loading('Fetching Author Data...');
-        const res = await fetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/users/${uid}`);
+        const res = await fetch(`${process.env.REACT_APP_API_URL}users/${uid}`);
         const data = await res.json();
         setAuthorInfo(data.user);
         toast.dismiss(loadingToast);

@@ -19,7 +19,7 @@ const Create = ({ user }) => {
     setIsPending(true);
     const loadingToast = toast.loading('Loading...');
     const blog = { title, body, author: authorName, userID: authorID };
-    fetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/blogs`, {
+    fetch(`${process.env.REACT_APP_API_URL}blogs`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(blog)

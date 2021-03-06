@@ -11,6 +11,7 @@ const NavBar = ({ user }) => {
             <Link to='/create'>New Blog</Link>
             <Link to='/search'>Search</Link>
             <Link to='/account'>Account</Link>
+            <Link to='/bookmarks'>Bookmarks</Link>
           </>
         ) : (
             <>

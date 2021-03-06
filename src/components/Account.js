@@ -26,7 +26,7 @@ const Account = ({ user }) => {
       try {
         loadingToast = toast.loading('Fetching your data...');
 
-        const res = await fetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/users/${app.auth().currentUser.uid}`);
+        const res = await fetch(`${process.env.REACT_APP_API_URL}users/${app.auth().currentUser.uid}`);
         const data = await res.json();
 
         setBio(data.user.bio);
@@ -71,7 +71,7 @@ const Account = ({ user }) => {
       loadingToast = toast.loading('Updating your account...');
       await app.auth().signInWithEmailAndPassword(app.auth().currentUser.email, passwordForConfirmation);
       const newProfilePicUrl = await uploadFile(file);
-      await fetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/users/${app.auth().currentUser.uid}`, {
+      await fetch(`${process.env.REACT_APP_API_URL}users/${app.auth().currentUser.uid}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -82,7 +82,7 @@ const Account = ({ user }) => {
           profilePicUrl: newProfilePicUrl,
         })
       });
-      await fetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/blogs/updateAllAuthor/${app.auth().currentUser.uid}`, {
+      await fetch(`${process.env.REACT_APP_API_URL}blogs/updateAllAuthor/${app.auth().currentUser.uid}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'

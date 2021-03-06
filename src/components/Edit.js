@@ -19,7 +19,7 @@ const Edit = ({ user }) => {
     (async () => {
       try {
         const loadingToast = toast.loading('Loading...');
-        const url = `https://blog-api-jyotisko.herokuapp.com/api/v1/blogs/${id}`;
+        const url = `${process.env.REACT_APP_API_URL}blogs/${id}`;
         const res = await fetch(url);
         const data = await res.json();
         toast.dismiss(loadingToast);
@@ -45,7 +45,7 @@ const Edit = ({ user }) => {
         body: body,
         author: author
       }
-      const data = await fetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/blogs/${id}`, {
+      const data = await fetch(`${process.env.REACT_APP_API_URL}blogs/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'

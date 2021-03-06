@@ -219,6 +219,17 @@ html {
   
 }
 
+/*    Bookmark SVG    */
+
+.svg-bookmark {
+  display: flex;
+  justify-content: flex-start;
+  cursor: pointer;
+  height: 4rem;
+  width: 4rem;
+  margin-top: 1rem;
+}
+
 /* Toast Notification */
 
 .toast-element {
@@ -286,9 +297,12 @@ span {
 /*************************************************/
 /*** Media Queries ***/
 
-@media screen and (max-width: 1048px) {
+@media screen and (max-width: 1050px) {
   html {
     font-size: 60%;
+  }
+  .navbar a {
+    margin-left: 1rem;
   }
 }
 
@@ -300,7 +314,7 @@ span {
 
 @media screen and (max-width: 828px) {
   .navbar a {
-    margin-left: 2rem;
+    margin-left: 0rem;
   }
 }
 
@@ -310,9 +324,15 @@ span {
   }
 }
 
-@media screen and (max-width: 610px) {
+@media screen and (max-width: 630px) {
   .navbar a {
     margin-left: 1rem;
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 2rem;
   }
 
   .content {

@@ -18,7 +18,7 @@ const Signup = () => {
       await credentials.user.updateProfile({
         displayName: username
       });
-      await fetch('https://blog-api-jyotisko.herokuapp.com/api/v1/users', {
+      await fetch(`${process.env.REACT_APP_API_URL}users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ const Signup = () => {
         />
         <button type='submit'>Sign Up</button>
       </form>
-      <div>Already have an account? <Link to='/login'>Login</Link></div>
+      <div className='dont-have-account-text'>Already have an account? <Link to='/login'>Login</Link></div>
     </div>
   );
 }

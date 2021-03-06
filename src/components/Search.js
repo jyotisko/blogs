@@ -16,11 +16,10 @@ const Search = ({ user }) => {
     let loadingToast;
     try {
       loadingToast = toast.loading('Fetching your blogs...');
-      const url = `https://blog-api-jyotisko.herokuapp.com/api/v1/blogs?${filter}=${query}`;
-      const res = await fetch(url);
+      const res = await fetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/blogs?${filter}=${query}`);
       const data = await res.json();
       toast.dismiss(loadingToast);
-      setBlogs(data);
+      setBlogs(data.blogs);
     } catch (err) {
       toast.dismiss(loadingToast);
       toast.error('Something went wrong', { duration: 5000 });

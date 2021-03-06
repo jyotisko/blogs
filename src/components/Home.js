@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const Home = ({ user }) => {
 
-  const [blogs, isPending, error] = useFetch('https://blog-api-jyotisko.herokuapp.com/api/v1/blogs');
+  const [data, isPending, error] = useFetch(`${process.env.REACT_APP_API_URL}blogs`);
 
   useEffect(() => {
     let loadingToast;
@@ -22,7 +22,7 @@ const Home = ({ user }) => {
     <div className='home'>
       {user ? (
         <>
-          {blogs && <BlogList blogs={blogs} title='All Blogs!' />}
+          {data && <BlogList blogs={data.blogs} title='All Blogs!' />}
         </>
       ) : (
           <h4><Link to='/login'>Login</Link> to view blogs</h4>
