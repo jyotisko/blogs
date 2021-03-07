@@ -131,8 +131,8 @@ const Account = ({ user }) => {
           }} position='bottom-center' />
         </>
       ) : (
-          <h4><Link to='/login'>Login</Link> to view account...</h4>
-        )}
+        <h4 className='login-to-view'><Link to='/login'>Login</Link> to view account...</h4>
+      )}
     </>
   );
 }

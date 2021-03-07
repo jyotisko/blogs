@@ -91,8 +91,8 @@ const Edit = ({ user }) => {
           }
         </div>
       ) : (
-          <h4><Link to='/login'>Login</Link> to be able to edit your blogs.</h4>
-        )}
+        <h4 className='login-to-view'><Link to='/login'>Login</Link> to be able to edit your blogs.</h4>
+      )}
 
       <Toaster toastOptions={{
         className: 'toast-element'

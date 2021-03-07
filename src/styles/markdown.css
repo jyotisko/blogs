@@ -1,0 +1,53 @@
+.blog-body h1 {
+  font-size: 3rem;
+}
+
+.blog-body h2 {
+  font-size: 2.5rem;
+}
+
+.blog-body h3 {
+  font-size: 2.3rem;
+}
+
+.blog-body h4 {
+  font-size: 2rem;
+}
+
+.blog-body h5 {
+  font-size: 1.8rem;
+}
+
+.blog-body h6 {
+  font-size: 1.5rem;
+}
+
+.blog-body p {
+  font-size: 2rem;
+}
+
+.blog-body li {
+  font-size: 2rem;
+}
+
+.blog-body th {
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+
+.blog-body td {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.blog-body code {
+  padding: 0.1rem 0.5rem;
+  background-color: #383838!important;
+  text-shadow: none!important;
+  justify-content: center;
+  align-items: center;
+}
+
+.blog-body code span {
+  font-size: 1.8rem;
+}

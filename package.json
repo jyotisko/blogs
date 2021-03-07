@@ -11,8 +11,11 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hot-toast": "^1.0.2",
+    "react-markdown": "^5.0.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.1",
+    "react-syntax-highlighter": "^15.4.3",
+    "remark-gfm": "^1.0.0",
     "sweetalert": "^2.1.2",
     "web-vitals": "^0.2.4"
   },

@@ -48,7 +48,7 @@ const Bookmarks = ({ user }) => {
             {isNone && <h1>No bookmarks yet</h1>}
           </>
         ) : (
-          <h4><Link to='/login'>Login</Link> to view blog.</h4>
+          <h4 className='login-to-view'><Link to='/login'>Login</Link> to view blog.</h4>
         )
       }
 

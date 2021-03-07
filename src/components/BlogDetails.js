@@ -1,9 +1,12 @@
-import { useHistory, useParams } from "react-router-dom";
-import useFetch from '../useFetch';
+import { useHistory, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { app } from './../firebase';
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import useFetch from '../useFetch';
+import { app } from './../firebase';
 import icons from './../assets/icons.svg';
 
 const BlogDetails = ({ user }) => {
@@ -102,6 +105,12 @@ const BlogDetails = ({ user }) => {
     );
   };
 
+  const renderers = {
+    code: ({ language, value }) => {
+      return <SyntaxHighlighter language={language} children={value} />
+    }
+  };
+
   return (
     <>
       {user ? (
@@ -111,10 +120,13 @@ const BlogDetails = ({ user }) => {
           }
           {
             isReady && <article>
-              <h2>{blog.blog.title}</h2>
-              <p>Written by <a href={`/user/${blog.blog.userID}`}>{blog.blog.author}</a></p>
+              <h2 className='blog-title'>{blog.blog.title}</h2>
+              <p className='written-by-author'>Written by <a href={`/user/${blog.blog.userID}`}>{blog.blog.author}</a></p>
               <SVGImage isBookmarked={isBookmarked} />
-              <div>{blog.blog.body}</div>
+              {/* <div>{blog.blog.body}</div> */}
+              <div className='blog-body'>
+                <ReactMarkdown renderers={renderers} plugins={[gfm]} source={blog.blog.body} />
+              </div>
               {
                 blog.blog.userID === app.auth().currentUser.uid || app.auth().currentUser.uid === process.env.REACT_APP_ADMIN_UID ? (
                   <>
@@ -127,7 +139,7 @@ const BlogDetails = ({ user }) => {
           }
         </div>
       ) : (
-        <h4><Link to='/login'>Login</Link> to view blog.</h4>
+        <h4 className='login-to-view'><Link to='/login'>Login</Link> to view blog.</h4>
       )}
       <Toaster toastOptions={{
         className: 'toast-element'

@@ -70,8 +70,8 @@ const Create = ({ user }) => {
           </form>
         </div>
       ) : (
-          <h4><Link to='/login'>Login</Link> to create a blog!</h4>
-        )}
+        <h4 className='login-to-view'><Link to='/login'>Login</Link> to create a blog!</h4>
+      )}
       <Toaster toastOptions={{
         className: 'toast-element'
       }} position='bottom-center' />

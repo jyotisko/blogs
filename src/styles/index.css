@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('./markdown.css');
 
 /* base styles */
 * {
@@ -78,20 +79,23 @@ html {
 
 /* blog details page */
 
-.blog-details h2 {
+.blog-details h2.blog-title {
   font-size: 4rem;
   color: #f1356d;
   margin-bottom: 1rem;
 }
 
-.blog-details p {
+.blog-details p.written-by-author {
   font-size: 2.5rem;
   color: rgba(0, 0, 0, 0.7);
 }
 
-.blog-details div {
+.blog-body {
   margin: 2rem 0;
+  border-top: 2px solid #111;
+  border-top-style: dashed;
   font-size: 3rem;
+  padding: 1rem 0;
 }
 
 .blog-details button {
@@ -219,7 +223,7 @@ html {
   
 }
 
-/*    Bookmark SVG    */
+/*  Bookmark SVG    */
 
 .svg-bookmark {
   display: flex;
@@ -238,7 +242,7 @@ html {
 
 /* Login to view blogs */
 
-h4 {
+h4.login-to-view {
   font-size: 2.5rem;
 }
 
