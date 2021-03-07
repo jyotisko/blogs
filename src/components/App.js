@@ -13,6 +13,7 @@ import { app } from './../firebase';
 import Account from './Account';
 import AuthorInfo from './AuthorInfo';
 import Bookmarks from './Bookmarks';
+import LearnToWriteBlog from './LearnToWriteBlog';
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
             <Route path='/account' component={() => <Account user={user} />} />
             <Route path='/user/:uid' component={() => <AuthorInfo user={user} />} />
             <Route path='/bookmarks' component={() => <Bookmarks user={user} />} />
+            <Route path='/learn' component={LearnToWriteBlog} />
             <Route path='*' component={NotFound} />
           </Switch>
 

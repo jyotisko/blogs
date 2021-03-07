@@ -123,7 +123,6 @@ const BlogDetails = ({ user }) => {
               <h2 className='blog-title'>{blog.blog.title}</h2>
               <p className='written-by-author'>Written by <a href={`/user/${blog.blog.userID}`}>{blog.blog.author}</a></p>
               <SVGImage isBookmarked={isBookmarked} />
-              {/* <div>{blog.blog.body}</div> */}
               <div className='blog-body'>
                 <ReactMarkdown renderers={renderers} plugins={[gfm]} source={blog.blog.body} />
               </div>

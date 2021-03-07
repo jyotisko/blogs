@@ -68,6 +68,7 @@ const Create = ({ user }) => {
             {!isPending && <button type='submit'>Add Blog</button>}
             {isPending && <button type='submit' disabled>Adding Blog</button>}
           </form>
+          <h3 className='learn-to-write'><Link to='/learn'>Learn</Link> to write a blog.</h3>
         </div>
       ) : (
         <h4 className='login-to-view'><Link to='/login'>Login</Link> to create a blog!</h4>
