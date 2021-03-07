@@ -109,6 +109,10 @@ html {
   font-size: 2.5rem;
 }
 
+.keywords {
+  font-size: 2rem;
+}
+
 /* create new blog form */
 
 .create {

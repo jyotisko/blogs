@@ -7,6 +7,7 @@ const Create = ({ user }) => {
 
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [keywords, setKeywords] = useState('');
   const [isPending, setIsPending] = useState(false);
 
   const authorName = app.auth()?.currentUser?.displayName;
@@ -18,7 +19,14 @@ const Create = ({ user }) => {
     e.preventDefault();
     setIsPending(true);
     const loadingToast = toast.loading('Loading...');
-    const blog = { title, body, author: authorName, userID: authorID };
+    const blog = {
+      title: title,
+      body: body,
+      author: authorName,
+      userID: authorID,
+      keywords: keywords
+    };
+    console.log(blog);
     fetch(`${process.env.REACT_APP_API_URL}blogs`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -61,6 +69,15 @@ const Create = ({ user }) => {
               value={body}
               onChange={e => setBody(e.target.value)}
             ></textarea>
+
+            <label>Keywords (seperated by ,):</label>
+            <input
+              type='text'
+              maxLength='50'
+              value={keywords}
+              onChange={e => setKeywords(e.target.value)}
+              placeholder='cooking,eggs'
+            />
 
             <label>Blog Author: </label>
             <input value={authorName} disabled />

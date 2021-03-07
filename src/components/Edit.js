@@ -11,6 +11,7 @@ const Edit = ({ user }) => {
   const [blog, setBlog] = useState();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [keywords, setKeywords] = useState('');
   const [author, setAuthor] = useState('');
   const [error, setError] = useState(false);
   const [userID, setUserID] = useState('');
@@ -28,6 +29,7 @@ const Edit = ({ user }) => {
         setTitle(data.blog.title);
         setBody(data.blog.body);
         setAuthor(data.blog.author);
+        setKeywords(data.blog.keywords);
       } catch (err) {
         setError(true);
       }
@@ -43,14 +45,14 @@ const Edit = ({ user }) => {
       const newBlogData = {
         title: title,
         body: body,
-        author: author
-      }
+        author: author,
+        keywords: keywords
+      };
       const data = await fetch(`${process.env.REACT_APP_API_URL}blogs/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
         },
-        data: JSON.stringify(newBlogData),
         body: JSON.stringify(newBlogData),
       });
       toast.dismiss(loadingToast);
@@ -76,10 +78,21 @@ const Edit = ({ user }) => {
                   <form onSubmit={handleSubmit}>
                     <label>Blog Title: </label>
                     <input type='text' value={title} onChange={e => setTitle(e.target.value)} />
+
                     <label>Blog Body: </label>
                     <textarea style={{ resize: 'vertical' }} type='text' value={body} onChange={e => setBody(e.target.value)} />
+
+                    <label>Keywords(seperated by ,): </label>
+                    <input
+                      type='text'
+                      maxLength='50'
+                      value={keywords}
+                      onChange={e => setKeywords(e.target.value)}
+                    />
+
                     <label>Blog Author: </label>
                     <input type='text' value={author} disabled />
+
                     <button type='submit'>Edit Changes</button>
                   </form>
                 </div>

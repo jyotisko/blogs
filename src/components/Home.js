@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import BlogList from "./BlogList";
-import useFetch from '../useFetch';
+import useFetch from '../hooks/useFetch';
 import { Link } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 

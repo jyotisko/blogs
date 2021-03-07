@@ -5,7 +5,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import useFetch from '../useFetch';
+import useFetch from '../hooks/useFetch';
 import { app } from './../firebase';
 import icons from './../assets/icons.svg';
 
@@ -111,6 +111,12 @@ const BlogDetails = ({ user }) => {
     }
   };
 
+  const getFormattedKeywords = keywords => {
+    if (keywords === '') return;
+    const formatted = keywords.split(',').map(el => `#${el.trim().replaceAll(' ', '-')}`).join(' ');
+    return formatted;
+  };
+
   return (
     <>
       {user ? (
@@ -126,6 +132,7 @@ const BlogDetails = ({ user }) => {
               <div className='blog-body'>
                 <ReactMarkdown renderers={renderers} plugins={[gfm]} source={blog.blog.body} />
               </div>
+              <h5 className='keywords'>{getFormattedKeywords(blog.blog.keywords)}</h5>
               {
                 blog.blog.userID === app.auth().currentUser.uid || app.auth().currentUser.uid === process.env.REACT_APP_ADMIN_UID ? (
                   <>
