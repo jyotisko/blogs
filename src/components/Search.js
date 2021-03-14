@@ -11,12 +11,12 @@ const Search = ({ user }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (query === '') return;
+    if (query.trim() === '') return;
 
     let loadingToast;
     try {
       loadingToast = toast.loading('Fetching your blogs...');
-      const res = await fetch(`https://blog-api-jyotisko.herokuapp.com/api/v1/blogs?${filter}=${query}`);
+      const res = await fetch(`${process.env.REACT_APP_API_URL}blogs?${filter}=${query.trim()}`);
       const data = await res.json();
       toast.dismiss(loadingToast);
       setBlogs(data.blogs);
@@ -36,6 +36,7 @@ const Search = ({ user }) => {
               <option value='title'>Title</option>
               <option value='body'>Body</option>
               <option value='author'>Author</option>
+              <option value='keywords'>Keywords</option>
             </select>
           </form>
           <div>

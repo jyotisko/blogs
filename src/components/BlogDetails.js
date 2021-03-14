@@ -85,7 +85,6 @@ const BlogDetails = ({ user }) => {
   };
 
   const handleBookmarkClick = async () => {
-    console.log(isBookmarked);
     try {
       if (isBookmarked) {
         await removeBookmark();
