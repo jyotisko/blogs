@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from 'react';
 import BlogList from "./BlogList";
-import useFetch from '../hooks/useFetch';
 import { Link } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
+import useFetch from '../hooks/useFetch';
+import { AuthContext } from './../context/AuthContext';
 
-const Home = ({ user }) => {
+const Home = () => {
 
+  const user = useContext(AuthContext);
   const [data, isPending, error] = useFetch(`${process.env.REACT_APP_API_URL}blogs`);
 
   useEffect(() => {

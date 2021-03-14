@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { AuthContext } from './../context/AuthContext';
 
-const AuthorInfo = ({ user }) => {
+const AuthorInfo = () => {
 
   const monthsArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+  const user = useContext(AuthContext);
   const { uid } = useParams();
   const [authorInfo, setAuthorInfo] = useState(null);
 

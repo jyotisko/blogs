@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { app } from './../firebase';
 import toast, { Toaster } from 'react-hot-toast';
 import swal from 'sweetalert';
+import { AuthContext } from './../context/AuthContext';
 
-const Account = ({ user }) => {
+const Account = () => {
 
+  const user = useContext(AuthContext);
   const history = useHistory();
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();

@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { app } from './../firebase';
 import toast, { Toaster } from 'react-hot-toast';
+import { AuthContext } from './../context/AuthContext';
 
-const Edit = ({ user }) => {
+const Edit = () => {
 
+  const user = useContext(AuthContext);
   const { id } = useParams();
   const history = useHistory();
   const [blog, setBlog] = useState();

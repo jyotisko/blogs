@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import BlogList from './BlogList';
 import toast, { Toaster } from 'react-hot-toast';
+import { AuthContext } from './../context/AuthContext';
 
-const Search = ({ user }) => {
+const Search = () => {
 
+  const user = useContext(AuthContext);
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState('title');
   const [blogs, setBlogs] = useState(null);

@@ -1,6 +1,6 @@
 import { useHistory, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
@@ -8,14 +8,17 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import useFetch from '../hooks/useFetch';
 import { app } from './../firebase';
 import icons from './../assets/icons.svg';
+import { AuthContext } from './../context/AuthContext';
 
-const BlogDetails = ({ user }) => {
+const BlogDetails = () => {
 
+  const user = useContext(AuthContext);
   const { id } = useParams();
   const history = useHistory();
   const [blog, isPending, error] = useFetch(`${process.env.REACT_APP_API_URL}blogs/${id}`);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const deleteBlog = () => {
     fetch(`${process.env.REACT_APP_API_URL}blogs/${id}`,
@@ -67,6 +70,7 @@ const BlogDetails = ({ user }) => {
   const addBookmark = async () => {
     let loadingToast = toast.loading('Adding bookmark...');
     try {
+      setIsBookmarked(true);
       const res = await fetch(`${process.env.REACT_APP_API_URL}bookmarks`, {
         method: 'POST',
         body: JSON.stringify({
@@ -86,12 +90,12 @@ const BlogDetails = ({ user }) => {
 
   const handleBookmarkClick = async () => {
     try {
-      if (isBookmarked) {
-        await removeBookmark();
-      } if (!isBookmarked) {
-        await addBookmark();
-      }
+      setIsProcessing(true);
+      if (isBookmarked) await removeBookmark();
+      if (!isBookmarked) await addBookmark();
+      setIsProcessing(false);
     } catch (err) {
+      setIsProcessing(false);
       toast.error('Something went wrong! Failed to fetch.', { duration: 5000 });
     }
   };
@@ -127,7 +131,7 @@ const BlogDetails = ({ user }) => {
             isReady && <article>
               <h2 className='blog-title'>{blog.blog.title}</h2>
               <p className='written-by-author'>Written by <a href={`/user/${blog.blog.userID}`}>{blog.blog.author}</a></p>
-              <SVGImage isBookmarked={isBookmarked} />
+              {isProcessing ? '' : <SVGImage isBookmarked={isBookmarked} />}
               <div className='blog-body'>
                 <ReactMarkdown renderers={renderers} plugins={[gfm]} source={blog.blog.body} />
               </div>

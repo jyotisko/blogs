@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { app } from './../firebase';
 import BlogList from './BlogList';
+import { AuthContext } from './../context/AuthContext';
 
-const Bookmarks = ({ user }) => {
+const Bookmarks = () => {
 
+  const user = useContext(AuthContext);
   const [bookmarks, setBookmarks] = useState([]);
   const [isNone, setIsNone] = useState(false);
 
