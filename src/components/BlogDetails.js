@@ -21,9 +21,11 @@ const BlogDetails = () => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const deleteBlog = () => {
-    fetch(`${process.env.REACT_APP_API_URL}blogs/${id}`,
+    fetch(`${process.env.REACT_APP_API_URL}bookmarks/all/${id}`, {
+      method: 'DELETE'
+    }).then(() => fetch(`${process.env.REACT_APP_API_URL}blogs/${id}`,
       { method: 'DELETE' }
-    ).then(_ => history.push('/'));
+    ).then(() => history.push('/')));
   };
 
   useEffect(() => {
