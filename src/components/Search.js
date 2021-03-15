@@ -10,6 +10,7 @@ const Search = () => {
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState('title');
   const [blogs, setBlogs] = useState(null);
+  const [amount, setAmount] = useState('');
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -18,7 +19,7 @@ const Search = () => {
     let loadingToast;
     try {
       loadingToast = toast.loading('Fetching your blogs...');
-      const res = await fetch(`${process.env.REACT_APP_API_URL}blogs?${filter}=${query.trim()}`);
+      const res = await fetch(`${process.env.REACT_APP_API_URL}blogs?limit=${amount || '20'}&${filter}=${query.trim()}`);
       const data = await res.json();
       toast.dismiss(loadingToast);
       setBlogs(data.blogs);
@@ -34,12 +35,14 @@ const Search = () => {
         <div className='search-container'>
           <form onSubmit={handleSubmit}>
             <input value={query} onChange={e => setQuery(e.target.value)} placeholder='Search' />
+            <input type='number' min='1' style={{ width: '20%' }} value={amount} onChange={e => setAmount(e.target.value)} placeholder='Amount' />
             <select onChange={e => setFilter(e.target.value)}>
               <option value='title'>Title</option>
               <option value='body'>Body</option>
               <option value='author'>Author</option>
               <option value='keywords'>Keywords</option>
             </select>
+            <button className='search-btn' type='submit'>Search</button>
           </form>
           <div>
             {

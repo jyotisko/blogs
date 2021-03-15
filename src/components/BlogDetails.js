@@ -21,11 +21,15 @@ const BlogDetails = () => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const deleteBlog = () => {
+    let deletingToast = toast.loading('Deleting Blog...');
     fetch(`${process.env.REACT_APP_API_URL}bookmarks/all/${id}`, {
       method: 'DELETE'
     }).then(() => fetch(`${process.env.REACT_APP_API_URL}blogs/${id}`,
       { method: 'DELETE' }
-    ).then(() => history.push('/')));
+    )).then(() => {
+      toast.dismiss(deletingToast);
+      history.push('/');
+    })
   };
 
   useEffect(() => {

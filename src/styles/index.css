@@ -51,6 +51,34 @@ html {
   font-size: 3.5rem;
 }
 
+/*  Home  */
+
+.paginate-btn-container {
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+.button-paginate {
+  font-size: 3rem;
+  cursor: pointer;
+  padding: 0 2rem;
+  border: none;
+  background-color: #f1356d;
+  color: #fff;
+  border-radius: 10%;
+}
+
+.button-left {
+  position: absolute;
+  left: 0;
+}
+
+.button-right {
+  position: absolute;
+  right: 0;
+}
+
 /* blog previews / list */
 
 .blog-preview {
@@ -201,6 +229,16 @@ html {
 .search-container form select {
   font-size: 2rem;
   cursor: pointer;
+}
+
+.search-btn {
+  font-size: 2.5rem;
+  cursor: pointer;
+  background-color: #f1356d;
+  color: #fff;
+  font-weight: 500;
+  width: 10%;
+  border-color: #f1356d;
 }
 
 /* Edit account */
