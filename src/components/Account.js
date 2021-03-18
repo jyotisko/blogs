@@ -120,7 +120,7 @@ const Account = () => {
                   <label>Choose Profile Picture: </label>
                   <input className='file-input' type='file' onChange={e => setFile(e.target.files[0])} />
                 </>
-              ) : <h4>Getting profile pic...</h4>}
+              ) : <h4 className='fetching-pic'>Fetching profile picture...</h4>}
               <label>Username: </label><input minLength='3' type='text' value={username} onChange={e => setUsername(e.target.value)}></input>
               <label>Email: </label><input type='email' value={email} onChange={e => setEmail(e.target.value)}></input>
               <label>Bio: </label><textarea type='text' value={bio} onChange={e => setBio(e.target.value)} placeholder='Write something about yourself...'></textarea>

@@ -28,7 +28,6 @@ const Create = () => {
       userID: authorID,
       keywords: keywords
     };
-    console.log(blog);
     fetch(`${process.env.REACT_APP_API_URL}blogs`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

@@ -13,6 +13,7 @@ import AuthorInfo from './AuthorInfo';
 import Bookmarks from './Bookmarks';
 import LearnToWriteBlog from './LearnToWriteBlog';
 import { AuthProvider } from './../context/AuthContext';
+import ColorMode from './ColorMode';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <div className="App">
           <NavBar />
           <div className='content'>
+            <ColorMode />
             <Switch>
               <Route path='/' exact component={Home} />
               <Route path='/create' component={Create} />

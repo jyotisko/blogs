@@ -9,6 +9,7 @@ import useFetch from '../hooks/useFetch';
 import { app } from './../firebase';
 import icons from './../assets/icons.svg';
 import { AuthContext } from './../context/AuthContext';
+import RecommendBlog from './RecommendBlog';
 
 const BlogDetails = () => {
 
@@ -47,7 +48,7 @@ const BlogDetails = () => {
 
     (async () => {
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}bookmarks/?userID=${app.auth().currentUser.uid}&blogID=${id}`);
+        const res = await fetch(`${process.env.REACT_APP_API_URL}bookmarks/?userID=${app.auth().currentUser?.uid}&blogID=${id}`);
         const data = await res.json();
         data.results === 0 ? setIsBookmarked(false) : setIsBookmarked(true);
         setIsReady(true);
@@ -134,23 +135,28 @@ const BlogDetails = () => {
             error && <div>Something went wrong...</div>
           }
           {
-            isReady && <article>
-              <h2 className='blog-title'>{blog.blog.title}</h2>
-              <p className='written-by-author'>Written by <a href={`/user/${blog.blog.userID}`}>{blog.blog.author}</a></p>
-              {isProcessing ? '' : <SVGImage isBookmarked={isBookmarked} />}
-              <div className='blog-body'>
-                <ReactMarkdown renderers={renderers} plugins={[gfm]} source={blog.blog.body} />
-              </div>
-              <h5 className='keywords'>{getFormattedKeywords(blog.blog.keywords)}</h5>
-              {
-                blog.blog.userID === app.auth().currentUser.uid || app.auth().currentUser.uid === process.env.REACT_APP_ADMIN_UID ? (
-                  <>
-                    <button onClick={deleteBlog} className='delete-blog'>Delete</button>
-                    <Link to={`/edit/${blog.blog._id}`}><button>Edit</button></Link>
-                  </>
-                ) : ''
-              }
-            </article>
+            isReady && (
+              <>
+                <article>
+                  <h2 className='blog-title'>{blog.blog.title}</h2>
+                  <p className='written-by-author'>Written by <Link to={`/user/${blog.blog.userID}`}>{blog.blog.author}</Link></p>
+                  {isProcessing ? '' : <SVGImage isBookmarked={isBookmarked} />}
+                  <div className='blog-body'>
+                    <ReactMarkdown renderers={renderers} plugins={[gfm]} source={blog.blog.body} />
+                  </div>
+                  <h5 className='keywords'>{getFormattedKeywords(blog.blog.keywords)}</h5>
+                  {
+                    blog.blog.userID === app.auth().currentUser.uid || app.auth().currentUser.uid === process.env.REACT_APP_ADMIN_UID ? (
+                      <>
+                        <button onClick={deleteBlog} className='delete-blog'>Delete</button>
+                        <Link to={`/edit/${blog.blog._id}`}><button>Edit</button></Link>
+                      </>
+                    ) : ''
+                  }
+                </article>
+                <RecommendBlog currentBlogID={id} />
+              </>
+            )
           }
         </div>
       ) : (

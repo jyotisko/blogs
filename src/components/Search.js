@@ -34,8 +34,8 @@ const Search = () => {
       {user ? (
         <div className='search-container'>
           <form onSubmit={handleSubmit}>
-            <input value={query} onChange={e => setQuery(e.target.value)} placeholder='Search' />
-            <input type='number' min='1' style={{ width: '20%' }} value={amount} onChange={e => setAmount(e.target.value)} placeholder='Amount' />
+            <input className='search-box' value={query} onChange={e => setQuery(e.target.value)} placeholder='Search' />
+            <input className='input-amount' type='number' min='1' value={amount} onChange={e => setAmount(e.target.value)} placeholder='Amount' />
             <select onChange={e => setFilter(e.target.value)}>
               <option value='title'>Title</option>
               <option value='body'>Body</option>

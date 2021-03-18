@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 const BlogList = ({ blogs, title }) => {
-
   return (
     <div className='blog-list'>
       <h1 className='blog-list-title'>{blogs.length > 0 ? title : 'No Blogs Found'}</h1>
