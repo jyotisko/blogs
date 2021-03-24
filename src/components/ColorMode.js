@@ -4,13 +4,25 @@ const ColorMode = () => {
 
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  useEffect(() => {
+  const saveThemeToLocalStorage = theme => localStorage.setItem('theme', theme);
+
+  const changeStyles = isDarkMode => {
     const root = document.querySelector(':root');
     root.style.setProperty('--body-bg-color', isDarkMode ? '#121212' : '#fafafa');
     root.style.setProperty('--author-name-color', isDarkMode ? '#fff' : 'rgba(0, 0, 0, 0.7)');
     root.style.setProperty('--keywords-color', isDarkMode ? '#fff' : '#000');
     root.style.setProperty('--box-shadow-color', isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)');
     root.style.setProperty('--input-bg-color', isDarkMode ? '#000' : '#fff');
+  };
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    savedTheme && savedTheme === 'light' ? setIsDarkMode(false) : setIsDarkMode(true);
+  }, []);
+
+  useEffect(() => {
+    saveThemeToLocalStorage(isDarkMode ? 'dark' : 'light');
+    changeStyles(isDarkMode);
   }, [isDarkMode]);
 
   return (
